@@ -75,9 +75,17 @@ def quicksort(arr):
           equal.append(x)
         if x>pivot:
           greater.append(x)
-          
-      return quicksort(less) + equal + quicksort(right)
+      return (quicksort(less) + equal + quicksort(greater))
 
     else:
       return arr
+      
+    
+    
+        
+
+
+
+
+
     
