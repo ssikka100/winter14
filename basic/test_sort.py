@@ -4,6 +4,7 @@ from sort import *
 inputs = ['', '4 1 1 2', '9 1 6 4 5 10 8 7 2 3']
 inputs = [ [int(i) for i in inp.split()] for inp in inputs ]
 
+
 class SortTest(unittest.TestCase):
 
     def test_bubblesort(self):
