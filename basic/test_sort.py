@@ -21,6 +21,11 @@ class SortTest(unittest.TestCase):
             out = mergesort(inp)
             self.assertListEqual( out, list(sorted(inp)) )
 
+    def test_quicksort(self):
+        for inp in inputs:
+            out = quicksort(inp)
+            self.assertListEqual( out, list(sorted(inp)) )
+
 
 
 if __name__ == "__main__":
