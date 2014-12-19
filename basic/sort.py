@@ -9,7 +9,7 @@ def bubblesort(arr):
       for k in range( len( arr ) -1):
         if ( arr[k] > arr[k + 1] ):
           swap( arr, k, k + 1 )
-          
+     
     return arr
 
 def selectionsort(arr):
