@@ -11,7 +11,8 @@ def bubblesort(arr):
       for k in range( len( arr ) -1):
         if ( arr[k] > arr[k + 1] ):
           swap( arr, k, k + 1 )
-     
+
+    print(arr)  
     return arr
 
 inputs = [ '9 1 6 4 5 10 8 7 2 3']
@@ -25,7 +26,7 @@ class SortTest(unittest.TestCase):
         for inp in inputs:
             out = bubblesort(inp)
             self.assertListEqual( out, list(sorted(inp)) )
-print(inputs)
+
 
 if __name__ == "__main__":
     unittest.main()
