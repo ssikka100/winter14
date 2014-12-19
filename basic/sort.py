@@ -60,4 +60,24 @@ def merge(left, right):
   
 
 def quicksort(arr):
-    pass
+
+    less = []
+    equal = []
+    greater = []
+
+    if(len(arr) >1):
+      pivot = arr[0]
+
+      for x in arr:
+        if x<pivot:
+          less.append(x)
+        if x == pivot:
+          equal.append(x)
+        if x>pivot:
+          greater.append(x)
+          
+      return quicksort(less) + equal + quicksort(right)
+
+    else:
+      return arr
+    
