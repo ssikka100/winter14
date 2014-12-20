@@ -17,19 +17,17 @@ def bubblesort(arr):
           swap( arr, k, k + 1 )
     return arr
 
-
 def selectionsort(arr):
-    for i in range(len(arr)-1):
+    for i in range(len(arr)):
         currMin=i
-        for k in range (i+1, len(arr)-1,1):
+        for k in range (i+1, len(arr),1):
             if(arr[k] < arr[currMin]):
                currMin=k
 
         if(currMin != i):
-           swap(arr, arr[i], arr[currMin])
+           swap(arr, i, currMin)
 
     return arr
-
 
 def mergesort(arr):
     if len(arr) < 2:
@@ -43,7 +41,6 @@ def mergesort(arr):
     right = mergesort(right)
 
     return(merge(left,right))
-
 
 def merge(left, right):
 
@@ -65,19 +62,17 @@ def merge(left, right):
 
     return sorted
 
-
 def quicksort(arr):
   if (len(arr) < 2):
     return arr
   else:
     return(quick(arr,0,len(arr)-1))
 
-
 def partition(arr, start,end):
   i = start-1
   pivot = arr[end]
 
-  for j in range(start,end-1):
+  for j in range(start,end):
     if(arr[j] < pivot):
       i+=1
       swap(arr,i,j)
