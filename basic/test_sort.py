@@ -4,12 +4,12 @@ from sort import *
 inputs = ['', '4 1 1 2', '9 1 6 4 5 10 8 7 2 3']
 inputs = [ [int(i) for i in inp.split()] for inp in inputs ]
 
-
+print (inputs)
 class SortTest(unittest.TestCase):
 
     def test_bubblesort(self):
         for inp in inputs:
-            out = selectionsort(inp)
+            out = bubblesort(inp)
             self.assertListEqual( out, list(sorted(inp)) )
 
     def test_selectionsort(self):
@@ -27,12 +27,23 @@ class SortTest(unittest.TestCase):
             out = quicksort(inp)
             self.assertListEqual( out, list(sorted(inp)) )
 
-
-
 if __name__ == "__main__":
     unittest.main()
 
 
+def swap( arr, x, y ):
+  tmp = arr[x]
+  arr[x] = arr[y]
+  arr[y] = tmp
+
+def bubblesort(arr):
+    for i in range( len( arr ) ):
+      for k in range( len( arr ) -1):
+        if ( arr[k] > arr[k + 1] ):
+          swap( arr, k, k + 1 )
+
+    print(arr) 
+    return arr
 
 def selectionsort(arr):
     for i in range(len(arr)):
@@ -44,6 +55,7 @@ def selectionsort(arr):
         if(currMin != i):
            swap(arr, arr[i], arr[currMin])
 
+    print(arr)
     return arr
         
 
@@ -57,7 +69,7 @@ def mergesort(arr):
 
     left = mergesort(left)
     right = mergesort(right)
-    
+
     return merge(left,right)
 
 def merge(left, right):
@@ -91,11 +103,11 @@ def quicksort(arr):
       pivot = arr[0]
 
       for x in arr:
-        if x<pivot:
+        if x < pivot:
           less.append(x)
         if x == pivot:
           equal.append(x)
-        if x>pivot:
+        if x > pivot:
           greater.append(x)
       return (quicksort(less) + equal + quicksort(greater))
 
