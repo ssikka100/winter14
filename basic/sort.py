@@ -87,6 +87,9 @@ def quick(arr, start, end):
     mid=partition(arr,start,end)
     quick(arr,start,mid-1)
     quick(arr,mid+1,end)
+    return arr
+  else:
+    return arr
 
 
 
