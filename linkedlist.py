@@ -61,6 +61,23 @@ class LinkedListTest(unittest.TestCase):
 
         self.assertListEqual(ll.to_list(), l)
 
+    def test_from_empty_list(self):
+        ll = LinkedList.from_list([])
+        self.assertIsNone(ll.start)
+        self.assertIsNone(ll.end)
+
+    def test_size_of_empty(self):
+        ll = LinkedList.from_list([])
+        self.assertEqual(ll.size(), 0)
+
+    def test_size_of_singleton(self):
+        ll = LinkedList.from_list([989])
+        self.assertEqual(ll.size(), 1)
+
+    def test_size_of_big(self):
+        ll = LinkedList.from_list([989,3,4,5,5,5])
+        self.assertEqual(ll.size(), 6)
+
 
 if __name__ == "__main__":
     unittest.main()
