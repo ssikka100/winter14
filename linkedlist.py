@@ -10,6 +10,15 @@ class LinkedList(object):
         self.start = first_node
         self.end = last_node
 
+    def clone(self):
+        pass
+    def size(self):
+        pass
+    def reverse(self):
+        pass
+
+
+    ## only for testing purposes
     @staticmethod
     def from_list(l):
         """Turns a python list to our linkedlist"""
