@@ -50,7 +50,7 @@ class LinkedList(object):
 
 import unittest
 
-class LinkedListTest(unittest.TestCase):
+class FromListTest(unittest.TestCase):
     def test_from_list(self):
         l = [1,2,3]
         ll = LinkedList.from_list(l)
@@ -66,6 +66,12 @@ class LinkedListTest(unittest.TestCase):
         self.assertIsNone(ll.start)
         self.assertIsNone(ll.end)
 
+    def test_from_singleton_list(self):
+        ll = LinkedList.from_list([989])
+        self.assertIsNotNone(ll.start)
+        self.assertEqual(ll.start, ll.end)
+
+class SizeTest(unittest.TestCase):
     def test_size_of_empty(self):
         ll = LinkedList.from_list([])
         self.assertEqual(ll.size(), 0)
@@ -77,6 +83,20 @@ class LinkedListTest(unittest.TestCase):
     def test_size_of_big(self):
         ll = LinkedList.from_list([989,3,4,5,5,5])
         self.assertEqual(ll.size(), 6)
+
+class CloneTest(unittest.TestCase):
+    def test_clone_empty(self):
+        ll1 = LinkedList.from_list([])
+        ll2 = ll1.clone()
+        self.assertNotEqual(ll1,ll2)
+
+    def test_clone_singleton(self):
+        ll1 = LinkedList.from_list([])
+        ll2 = ll1.clone()
+        self.assertNotEqual(ll1,ll2)
+        self.assertNotEqual(ll1.start,ll2.start)
+        self.assertListEqual(ll1.to_list(), ll2.to_list())
+
 
 
 if __name__ == "__main__":
