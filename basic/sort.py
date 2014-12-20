@@ -1,3 +1,7 @@
+"""
+Comparison-based sorting functions
+"""
+
 
 def swap( arr, x, y ):
   tmp = arr[x]
@@ -20,12 +24,12 @@ def selectionsort(arr):
         for k in range (i+1, len(arr)-1,1):
             if(arr[k] < arr[currMin]):
                currMin=k
-               
+
         if(currMin != i):
            swap(arr, arr[i], arr[currMin])
-           
+
     return arr
-        
+
 
 def mergesort(arr):
     if len(arr) < 2:
@@ -37,9 +41,9 @@ def mergesort(arr):
 
     left = mergesort(left)
     right = mergesort(right)
-    
+
     return(merge(left,right))
-    
+
 
 def merge(left, right):
 
@@ -60,15 +64,15 @@ def merge(left, right):
          sorted.extend(right[r:])
 
     return sorted
-  
+
 
 def quicksort(arr):
   if (len(arr) < 2):
     return arr
   else:
     return(quick(arr,0,len(arr)-1))
-  
-    
+
+
 def partition(arr, start,end):
   i = start-1
   pivot = arr[end]
@@ -91,31 +95,3 @@ def quick(arr, start, end):
   else:
     return arr
 
-
-
-
-##def quicksort(arr):
-##
-##    less = []
-##    equal = []
-##    greater = []
-##
-##    if(len(arr) >1):      
-##      pivot = arr[0]
-##      for x in arr:    
-##        if (x<pivot):          
-##          less.append(x)     
-##        if (x == pivot):
-##          equal.append(x)
-##        if (x>pivot):
-##          greater.append(x)
-##
-##      return(quicksort(less) + equal + quicksort(greater))
-##
-##    else:
-##      return(arr)
-
-
-
-    
-    
