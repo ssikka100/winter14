@@ -15,14 +15,15 @@ def bubblesort(arr):
 
 
 def selectionsort(arr):
-    for i in range(len(arr)):
+    for i in range(len(arr)-1):
         currMin=i
-        for k in range (i+1, len(arr),1):
+        for k in range (i+1, len(arr)-1,1):
             if(arr[k] < arr[currMin]):
                currMin=k
                
         if(currMin != i):
            swap(arr, arr[i], arr[currMin])
+           
     return arr
         
 
@@ -62,23 +63,56 @@ def merge(left, right):
   
 
 def quicksort(arr):
+  if (len(arr) < 2):
+    return arr
+  else:
+    return(quick(arr,0,len(arr)-1))
+  
+    
+def partition(arr, start,end):
+  i = start-1
+  pivot = arr[end]
 
-    less = []
-    equal = []
-    greater = []
+  for j in range(start,end-1):
+    if(arr[j] < pivot):
+      i+=1
+      swap(arr,i,j)
 
-    if(len(arr) >1):      
-      pivot = arr[0]
-      for x in arr:    
-        if (x<pivot):          
-          less.append(x)     
-        if (x == pivot):
-          equal.append(x)
-        if (x>pivot):
-          greater.append(x)
+  i+=1
+  swap(arr,i,end)
+  return i
 
-      return(quicksort(less) + equal + quicksort(greater))
+def quick(arr, start, end):
+  if(start<end):
+    mid=partition(arr,start,end)
+    quick(arr,start,mid-1)
+    quick(arr,mid+1,end)
 
-    else:
-      return(arr)
+
+
+
+##def quicksort(arr):
+##
+##    less = []
+##    equal = []
+##    greater = []
+##
+##    if(len(arr) >1):      
+##      pivot = arr[0]
+##      for x in arr:    
+##        if (x<pivot):          
+##          less.append(x)     
+##        if (x == pivot):
+##          equal.append(x)
+##        if (x>pivot):
+##          greater.append(x)
+##
+##      return(quicksort(less) + equal + quicksort(greater))
+##
+##    else:
+##      return(arr)
+
+
+
+    
     
