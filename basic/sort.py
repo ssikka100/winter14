@@ -5,12 +5,13 @@ def swap( arr, x, y ):
   arr[y] = tmp
 
 def bubblesort(arr):
+    if len(arr) < 1:
+      return arr
     for i in range( len( arr ) ):
       for k in range( len( arr ) -1):
         if ( arr[k] > arr[k + 1] ):
           swap( arr, k, k + 1 )
-
-    print(arr) 
+    return arr
 
 
 def selectionsort(arr):
@@ -22,8 +23,7 @@ def selectionsort(arr):
                
         if(currMin != i):
            swap(arr, arr[i], arr[currMin])
-           
-    print(arr) 
+    return arr
         
 
 def mergesort(arr):
@@ -37,9 +37,7 @@ def mergesort(arr):
     left = mergesort(left)
     right = mergesort(right)
     
-    merge(left,right)
-
-    print(arr)
+    return(merge(left,right))
     
 
 def merge(left, right):
@@ -69,19 +67,18 @@ def quicksort(arr):
     equal = []
     greater = []
 
-    if(len(arr) >1):
+    if(len(arr) >1):      
       pivot = arr[0]
-
-      for x in arr:
-        if x<pivot:
-          less.append(x)
-        if x == pivot:
+      for x in arr:    
+        if (x<pivot):          
+          less.append(x)     
+        if (x == pivot):
           equal.append(x)
-        if x>pivot:
+        if (x>pivot):
           greater.append(x)
-          quicksort(less) + equal + quicksort(greater)
-          print(arr)
+
+      return(quicksort(less) + equal + quicksort(greater))
 
     else:
-      print(arr)
+      return(arr)
     
