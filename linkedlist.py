@@ -12,22 +12,25 @@ class LinkedList(object):
 
     def clone(self):
         if self.start is None:
-            return
+            return(None, None)
         currNode = self.start
         cloneStart = None
         cloneEnd = None
         
         while currNode is not None:
             NewCloneNode = Node(currNode.value)
-            if cloneStart is None:
-                cloneStart = NewCloneNode
-                cloneEnd = NewCloneNode
-                
+            
             if cloneEnd is not None:
                 cloneEnd.next = NewCloneNode
                 cloneEnd = NewCloneNode
-            
+
+            if cloneStart is None:
+                cloneStart = NewCloneNode
+                cloneEnd = NewCloneNode          
+
             currNode = currNode.next
+            
+        return (cloneStart,cloneEnd)
             
         
     def size(self):
