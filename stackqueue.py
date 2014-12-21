@@ -122,11 +122,16 @@ class LLPriorityQueue(object):
         newelement.next=curr
               
     def peek(self):
-        pass
+        if self.is_empty:
+            return None
+        else:
+            value=start.value
+            return value
     
     def pop_min(self):
-
-        if(start is not None):
+        if self.is_empty:
+            return None
+        else:
             value=start.value
             start=start.next
-        return value
+            return value
