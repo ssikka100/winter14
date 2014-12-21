@@ -2,6 +2,12 @@ class Node(object):
     def __init__(self, value, next=None):
         self.value = value
         self.next = next
+        
+class PriorityNode(object):
+    def __init__(self, value, priority, next=None):
+        self.value = value
+        self.priority=priority
+        self.next = next
 
 class LLStack(object):
     def __init__(self):
@@ -96,12 +102,31 @@ class TwoStackQueue(object):
 
 class LLPriorityQueue(object):
     def __init__(self):
-        pass
+        start = None
+        
     def is_empty(self):
-        pass
+        if(self.start is None):
+            return True
+        else:
+            return False
+        
     def insert(self, priority, e):
-        pass
+
+        curr=start
+        while( curr.priority < priority):
+            previous=curr
+            curr=curr.next
+            
+        newelement = PriorityNode(e,priority)
+        previous.next=newelement
+        newelement.next=curr
+              
     def peek(self):
         pass
+    
     def pop_min(self):
-        pass
+
+        if(start is not None):
+            value=start.value
+            start=start.next
+        return value
