@@ -12,7 +12,7 @@ class LinkedList(object):
 
     def clone(self):
         if self.start is None:
-            return LinkedList(self.start)
+            return LinkedList(self.start,self.end)
         
         currNode = self.start
         cloneStart = None
@@ -44,7 +44,23 @@ class LinkedList(object):
         return count
  
     def reverse(self):
-        pass
+        if self.start is None:
+            return LinkedList(self.start,self.end)
+
+        currNode = self.start
+        previousNode = None
+        reverseStart=self.end
+        
+        while currNode is not None:
+            tempNode = currNode.next
+            currNode.next = previousNode
+            previousNode=currNode
+            if(tempNode is None):
+                reverseEnd=currNode
+            currNode = tempNode
+
+        return LinkedList(reverseStart,reverseEnd)
+        
 
 
     ## only for testing purposes
@@ -120,7 +136,7 @@ class CloneTest(unittest.TestCase):
         self.assertNotEqual(ll1,ll2)
 
     def test_clone_singleton(self):
-        ll1 = LinkedList.from_list([])
+        ll1 = LinkedList.from_list([989])
         ll2 = ll1.clone()
         self.assertNotEqual(ll1,ll2)
         self.assertNotEqual(ll1.start,ll2.start)
