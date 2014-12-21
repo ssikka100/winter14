@@ -12,7 +12,7 @@ class LinkedList(object):
 
     def clone(self):
         if self.start is None:
-            return(None, None)
+            return LinkedList (None, None)
         currNode = self.start
         cloneStart = None
         cloneEnd = None
@@ -30,7 +30,7 @@ class LinkedList(object):
 
             currNode = currNode.next
             
-        return (cloneStart,cloneEnd)
+        return LinkedList(cloneStart,cloneEnd)
             
         
     def size(self):
