@@ -11,10 +11,10 @@ class PriorityNode(object):
 
 class LLStack(object):
     def __init__(self):
-        top = None
+        self.top = None
                 
     def is_empty(self):
-        if(top is None):
+        if(self.top is None):
             return True
         else:
             return False
@@ -22,23 +22,23 @@ class LLStack(object):
     def push(self, e):
         if self.is_empty:
             newElement = Node(e)
-            top = newElement
-            top.next = None
+            self.top = newElement
+            self.top.next = None
 
         else:
             newElement = Node(e)
             previous=top
-            top = newElement
-            top.next=previous
+            self.top = newElement
+            self.top.next=previous
         
-        return(top)
+        return(self.top)
             
     def pop(self):
         if self.is_empty:
             return None
         else:
-            value=top.value
-            top=top.next
+            value = self.top.value
+            self.top = self.top.next
             return value
 
 
