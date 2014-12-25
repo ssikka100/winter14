@@ -40,7 +40,7 @@ for key in [76, 25, 79, 14, 66, 13, 8, 65, 28, 25, 76, 80, 77, 70, 64, 79, 40, 2
 print "Average access time: ", sum(times)/ float(len(times))
 print "Hits: ", hit_count
 print "Misses: ", miss_count
-
+print "done"
 
 
 
