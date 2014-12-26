@@ -49,7 +49,8 @@ class LLStack(object):
 
 class DoubleLinkList(object):
     def __init__(self):
-        self.start= None
+        self.start = None
+        self.end = None 
 
     def is_empty(self):
         if self.start is None:
@@ -57,62 +58,33 @@ class DoubleLinkList(object):
         else:
             return False
 
-    def push(self, value):
+    def insert(self, value):
         if self.is_empty:
             newNode = DoubleNode(value)
             self.start=newNode
+            self.end = self.start
         else:
             newNode = DoubleNode(value)
-            newnode.previous=self.start
-            self.start.next = newNode
-            self.start = newNode
-        return self.start
-
-    def peek(self,value):
-        if self.is_empty:
-            return None
-        else:
-            curr = self.start
-            while curr is not None:
-                if(curr.value == value):
-                    return True
-                curr = curr.previous
-            return False
+            self.end.next = newNode
+            newNode.previous = self.end
+            self.end = newNode
+        return newNode
         
-    def top(self):
+    def head(self):
         if self.is_empty:
             return None
         else:
-            value = self.start.value
             return self.start
         
-
-    def delete(self,node):
+    def delete(self, node):
         if self.is_empty:
             return None
         else:
-            ret = curr.value
-            ahead = curr.next
-            prev = curr.previous
-            ahead.previous = curr.previous
-            prev.next = curr.next
-            
-##            curr = self.start
-##            flag = 0
-##            while curr is not None:
-##                if (curr.value == value):
-##                    flag = 1
-##                    break
-##                curr = curr.previous
-##            if(flag):
-##                ret = curr.value
-##                ahead = curr.next
-##                prev = curr.previous
-##                ahead.previous = curr.previous
-##                prev.next = curr.next
-##                return ret
-##            else: return None
-        
+            ahead = node.next
+            prev = node.previous
+            ahead.previous = node.previous
+            prev.next = node.next
+
     
 class LLQueue(object):
     def __init__(self):
@@ -207,3 +179,5 @@ class LLPriorityQueue(object):
             value=start.value
             start=start.next
             return value
+
+

@@ -9,54 +9,46 @@ class AbstractCache(object):
         "returns None if key is not in cache"
         pass
 
-class MRUCache(object):
+class LRUCache(object):
     """
-    Evict the most recently accessed or inserted element.
+    Evict the least recently accessed element.
     """
     def __init__(self, max_size):
-        self.max_size = max_size
-        # stack has no duplicates.
-        # |stack| == |store|
-        # stack and store have exactly same elements
-        # adding element to stack is O(1)
-        # removing element from stack... 
-        self.store = {}
-        self.stack = DoubleLinkList()
+        self.max_size = max_size 
+        self.cacheMem = {}
+        self.trackLRU = DoubleLinkList()
 
     def cache(self, key, value):
-        if self.store.has_key(key):
-            if self.stack.peek(key):
-                self.stack.delete(key)
-                temp = self.stack.push(key)
-                self.store[key] = temp
-                temp.value = value
-           
+        if self.cacheMem.has_key(key):
+            mapNode = self.cacheMem[key]
+            self.trackLRU.delete(mapNode)
+            new = self.trackLRU.insert(value)
+            self.cacheMem[key] = new
+          
         else:
-            if len(self.store) < self.max_size:
-                 temp = self.stack.push(key)
-                 temp.value =  value
-                 self.store[key] = temp
+            if len(self.cacheMem) < self.max_size:
+                 new = self.trackLRU.insert(value)
+                 self.cacheMem[key] = new
                 
             else:
-                temp = self.stack.top()
-                if self.store.has_key(temp):
-                    del self.store[temp]
-                else:
-                    delkey, old_value = self.store.popitem()
-                    
-                self.stack.delete(key)
-                temp = self.stack.push(key)
-                self.store[key] = temp
-                temp.value = value
+                temp = self.trackLRU.head()
+                if self.cacheMem.has_key(temp):
+                    self.trackLRU.delete(temp)
+                    del self.cacheMem[key]
+
+                    new = self.trackLRU.insert(value)
+                    self.cacheMem[key] = new
 
     def get_value(self, key):
         "returns None if key is not in cache"
-        if self.store.has_key(key):
-            self.stack.delete(key)
-            temp = self.stack.push(key)
-            return temp.value        
+        if self.cacheMem.has_key(key):
+            mapNode = self.cacheMem[key]
+            value = mapNode.value
+            self.trackLRU.delete(mapNode)
+            temp = self.trackLRU.insert(mapNode)
+            return value        
         else:
             return None
     
 
-Cache = MRUCache
+Cache = LRUCache
