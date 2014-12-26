@@ -25,8 +25,7 @@ class MRUCache(object):
 
     def cache(self, key, value):
         if len(self.store) < self.max_size:
-            self.store[key] = value
-            self.stack.push(key)
+            self.store[key] = self.stack.push(key)
             
         else:
             temp = self.stack.top()
@@ -34,18 +33,17 @@ class MRUCache(object):
                 del self.store[temp]
             else:
                 delkey, old_value = self.store.popitem()
-                self.store[key] = value
                 
             self.stack.delete(key)    
-            self.stack.push(key)
+            self.store[key] = self.stack.push(key)
 
     def get_value(self, key):
         "returns None if key is not in cache"
         if self.store.has_key(key):
             if self.stack.peek:
                 self.stack.delete(key)
-                self.stack.push(key)
-            return self.store[key]
+                temp = self.stack.push(key)
+            return temp.value
         
         else:
             return None

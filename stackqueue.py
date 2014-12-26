@@ -66,6 +66,7 @@ class DoubleLinkList(object):
             newnode.previous=self.start
             self.start.next = newNode
             self.start = newNode
+        return self.start
 
     def peek(self,value):
         if self.is_empty:
@@ -83,28 +84,34 @@ class DoubleLinkList(object):
             return None
         else:
             value = self.start.value
-            return value
+            return self.start
         
 
-    def delete(self,value):
+    def delete(self,node):
         if self.is_empty:
             return None
         else:
-            curr = self.start
-            flag = 0
-            while curr is not None:
-                if (curr.value == value):
-                    flag = 1
-                    break
-                curr = curr.previous
-            if(flag):
-                ret = curr.value
-                ahead = curr.next
-                prev = curr.previous
-                ahead.previous = curr.previous
-                prev.next = curr.next
-                return ret
-            else: return None
+            ret = curr.value
+            ahead = curr.next
+            prev = curr.previous
+            ahead.previous = curr.previous
+            prev.next = curr.next
+            
+##            curr = self.start
+##            flag = 0
+##            while curr is not None:
+##                if (curr.value == value):
+##                    flag = 1
+##                    break
+##                curr = curr.previous
+##            if(flag):
+##                ret = curr.value
+##                ahead = curr.next
+##                prev = curr.previous
+##                ahead.previous = curr.previous
+##                prev.next = curr.next
+##                return ret
+##            else: return None
         
     
 class LLQueue(object):
