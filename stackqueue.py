@@ -3,6 +3,12 @@ class Node(object):
         self.value = value
         self.next = next
         
+class HashNode(object):
+    def __init__(self, key, value, next=None):
+        self.key = key
+        self.value = value
+        self.next = next
+        
 class DoubleNode(object):
     def __init__(self,value,next = None, previous = None):
         self.value = value
@@ -58,13 +64,22 @@ class DoubleLinkList(object):
         else:
             return False
 
-    def insert(self, value):
+    def insertNode(self, node):
         if self.is_empty:
-            newNode = DoubleNode(value)
+            self.start = node
+            self.end = self.start
+        else:
+            self.end.next = node
+            newNode.previous = self.end
+            self.end = node
+        
+    def insert(self, pair):
+        if self.is_empty:
+            newNode = DoubleNode(pair)
             self.start=newNode
             self.end = self.start
         else:
-            newNode = DoubleNode(value)
+            newNode = DoubleNode(pair)
             self.end.next = newNode
             newNode.previous = self.end
             self.end = newNode

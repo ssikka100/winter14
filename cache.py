@@ -18,25 +18,39 @@ class LRUCache(object):
         self.cacheMem = {}
         self.trackLRU = DoubleLinkList()
 
-    def cache(self, key, value):
+    def moveToFront(self, mapNode):
+        """Moves a node to front of LRU in constant time"""
+        self.trackLRU.delete(mapNode)
+        self.trackLRU.insertNode(mapNode)
+
+    def evict(self, key):
         if self.cacheMem.has_key(key):
             mapNode = self.cacheMem[key]
             self.trackLRU.delete(mapNode)
-            new = self.trackLRU.insert(value)
-            self.cacheMem[key] = new
+            del self.cacheMem[key]
+
+    def cache(self, key, value):
+        if self.cacheMem.has_key(key):
+            # move node to front and update value
+            mapNode = self.cacheMem[key]
+            self.moveToFront(mapNode)
+            mapNode.value = value
           
         else:
             if len(self.cacheMem) < self.max_size:
-                 new = self.trackLRU.insert(value)
-                 self.cacheMem[key] = new
+                 # create new node and hashtable entry.
+                 pair = (key,value)
+                 newNode = self.trackLRU.insert(pair)
+                 self.cacheMem[key] = newNode
                 
             else:
+                # evict LRU , and then create new node and hashtable entry.
                 temp = self.trackLRU.head()
-                if self.cacheMem.has_key(temp):
-                    self.trackLRU.delete(temp)
-                    del self.cacheMem[key]
-
-                    new = self.trackLRU.insert(value)
+                if temp is not None:
+                    k,v = temp.value
+                    self.evict(k)
+                    pair = (key,value)
+                    new = self.trackLRU.insert(pair)
                     self.cacheMem[key] = new
 
     def get_value(self, key):
@@ -44,11 +58,15 @@ class LRUCache(object):
         if self.cacheMem.has_key(key):
             mapNode = self.cacheMem[key]
             value = mapNode.value
-            self.trackLRU.delete(mapNode)
-            temp = self.trackLRU.insert(mapNode)
+            self.moveToFront(mapNode)
             return value        
         else:
             return None
-    
+"""
+1. insert, less than max size
+2. insert, max size, evict LRU
+3. get key, should update LRU
+4. insert should update LRU
+"""
 
 Cache = LRUCache
