@@ -24,27 +24,37 @@ class MRUCache(object):
         self.stack = DoubleLinkList()
 
     def cache(self, key, value):
-        if len(self.store) < self.max_size:
-            self.store[key] = self.stack.push(key)
-            
+        if self.store.has_key(key):
+            if self.stack.peek(key):
+                self.stack.delete(key)
+                temp = self.stack.push(key)
+                self.store[key] = temp
+                temp.value = value
+           
         else:
-            temp = self.stack.top()
-            if self.store.has_key(temp):
-                del self.store[temp]
-            else:
-                delkey, old_value = self.store.popitem()
+            if len(self.store) < self.max_size:
+                 temp = self.stack.push(key)
+                 temp.value =  value
+                 self.store[key] = temp
                 
-            self.stack.delete(key)    
-            self.store[key] = self.stack.push(key)
+            else:
+                temp = self.stack.top()
+                if self.store.has_key(temp):
+                    del self.store[temp]
+                else:
+                    delkey, old_value = self.store.popitem()
+                    
+                self.stack.delete(key)
+                temp = self.stack.push(key)
+                self.store[key] = temp
+                temp.value = value
 
     def get_value(self, key):
         "returns None if key is not in cache"
         if self.store.has_key(key):
-            if self.stack.peek:
-                self.stack.delete(key)
-                temp = self.stack.push(key)
-            return temp.value
-        
+            self.stack.delete(key)
+            temp = self.stack.push(key)
+            return temp.value        
         else:
             return None
     
