@@ -3,6 +3,12 @@ class Node(object):
         self.value = value
         self.next = next
         
+class DoubleNode(object):
+    def __init__(self,value,next = None, previous = None):
+        self.value = value
+        self.next = next
+        self.previous = previous
+        
 class PriorityNode(object):
     def __init__(self, value, priority, next=None):
         self.value = value
@@ -41,13 +47,72 @@ class LLStack(object):
             self.top = self.top.next
             return value
 
+class DoubleLinkList(object):
+    def __init__(self):
+        self.start= None
 
+    def is_empty(self):
+        if self.start is None:
+            return True
+        else:
+            return False
+
+    def push(self, value):
+        if self.is_empty:
+            newNode = DoubleNode(value)
+            self.start=newNode
+        else:
+            newNode = DoubleNode(value)
+            newnode.previous=self.start
+            self.start.next = newNode
+            self.start = newNode
+
+    def peek(self,value):
+        if self.is_empty:
+            return None
+        else:
+            curr = self.start
+            while curr is not None:
+                if(curr.value == value):
+                    return True
+                curr = curr.previous
+            return False
+        
+    def top(self):
+        if self.is_empty:
+            return None
+        else:
+            value = self.start.value
+            return value
+        
+
+    def delete(self,value):
+        if self.is_empty:
+            return None
+        else:
+            curr = self.start
+            flag = 0
+            while curr is not None:
+                if (curr.value == value):
+                    flag = 1
+                    break
+                curr = curr.previous
+            if(flag):
+                ret = curr.value
+                ahead = curr.next
+                prev = curr.previous
+                ahead.previous = curr.previous
+                prev.next = curr.next
+                return ret
+            else: return None
+        
+    
 class LLQueue(object):
     def __init__(self):
-        start = None
+        self.start = None
         
     def is_empty(self):
-        if start is None:
+        if self.start is None:
             return True
         else:
             return False
@@ -55,17 +120,17 @@ class LLQueue(object):
     def push(self, e):
         if self.is_empty:
             newNode = Node(e)
-            start=newNode
+            self.start=newNode
         else:
             newNode = Node(e)
-            start.next=newNode
+            self.start.next=newNode
     
     def pop(self):
         if self.is_empty:
             return None
         else:
-            value=start.value
-            start=start.next
+            value=self.start.value
+            self.start=self.start.next
             return value
 
 class TwoStackQueue(object):

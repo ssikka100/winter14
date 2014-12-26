@@ -21,24 +21,32 @@ class MRUCache(object):
         # adding element to stack is O(1)
         # removing element from stack... 
         self.store = {}
-        self.stack = LLStack()
+        self.stack = DoubleLinkList()
 
     def cache(self, key, value):
         if len(self.store) < self.max_size:
             self.store[key] = value
+            self.stack.push(key)
+            
         else:
-            temp = self.stack.pop()
+            temp = self.stack.top()
             if self.store.has_key(temp):
                 del self.store[temp]
             else:
                 delkey, old_value = self.store.popitem()
                 self.store[key] = value
+                
+            self.stack.delete(key)    
+            self.stack.push(key)
 
     def get_value(self, key):
         "returns None if key is not in cache"
         if self.store.has_key(key):
-            temp = self.stack.push(key)
+            if self.stack.peek:
+                self.stack.delete(key)
+                self.stack.push(key)
             return self.store[key]
+        
         else:
             return None
     
